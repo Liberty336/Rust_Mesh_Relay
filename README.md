@@ -1,20 +1,20 @@
 # Rust_Relay
-EXPERIMENTAL, IN DEVELOPMENT
+EXPERIMENTAL, IN DEVELOPMENT<br>
 Post-disaster mesh messenger. No internet required, just WiFi range.
 
 ## How it works
 
-Every device broadcasts UDP packets on the local network (or hotspot).
+Every device broadcasts UDP packets on the local network (or hotspot).<br>
 Devices out of direct range are reached via relay:
-
+<br>
 ```
 [Alice] ──WiFi──> [Bob] ──WiFi──> [Charlie]
                     ↑
                  relay node
 ```
-
-Packets carry a hop counter. Each relay increments it.
-At max_hops (8), the packet is dropped, which prevents infinite loops.
+<br>
+Packets carry a hop counter. Each relay increments it.<br>
+At max_hops (8), the packet is dropped, which prevents infinite loops.<br>
 
 ## Build & run
 
