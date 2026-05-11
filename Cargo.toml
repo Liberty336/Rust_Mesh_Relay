@@ -1,0 +1,9 @@
+[package]
+name    = "rust_relay"
+version = "0.1.0"
+edition = "2021"
+
+# rand is the only external dependency — just for generating the device ID.
+# Everything else (UDP, threads, channels, file I/O) is in std.
+[dependencies]
+rand = "0.10"
