@@ -14,7 +14,10 @@ Devices out of direct range are reached via relay:
 ```
 <br>
 Packets carry a hop counter. Each relay increments it.<br>
-At max_hops (8), the packet is dropped, which prevents infinite loops.<br>
+At max_hops (8), the packet is dropped, which prevents infinite loops.
+<br><br>
+
+You can extend the amount of hops taken for larger mesh networks by changing source code
 
 ## Build & run
 
