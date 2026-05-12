@@ -28,30 +28,45 @@ The Play Store version is years out of date and `pkg install rust` won't work on
 
 
 ## Features
-Text messaging <br><br>
-
+1. Text messaging <br>
 Type anything and hit Enter -> broadcasts to everyone on the network<br>
 Messages show the sender's name<br>
 Relayed automatically through intermediate devices
 <br><br>
-File transfer? Yes, including video!
+2. File transfer? Yes, including video!
 <br><br>
 /sendfile <path> sends any file: photos, videos, documents, anything<br>
 Works by splitting the file into 1KB chunks, each sent as a separate UDP packet<br>
 Receivers collect chunks and reassemble when all arrive<br>
 Saved automatically to a received_files/ folder<br>
 <br><br>
-Peer discovery
+3. Peer discovery
 <br><br>
 Every device announces itself every 5 seconds automatically<br>
 /peers lists everyone currently known on the network<br>
 New arrivals print a notification when first seen<br>
 <br><br>
-Mesh relaying
+4. Mesh relaying
 <br><br>
 Packets hop through intermediate devices automatically<br>
 Max 8 hops — so Alice can reach Charlie through Bob even if Alice and Charlie can't directly see each other<br>
 Deduplication prevents the same packet from circling forever<br>
+
+## Current Safety Features
+1. Safety in `save_received_file`
+This was about ensuring a peer couldn't execute a "Directory Traversal" attack by sending a malicious path.
+
+*   **The Sanitization Logic:**
+    
+    ```.map(|s| s.replace(|c: char| !c.is_alphanumeric() && c != '.', "_"))```
+
+    *Context:* 
+    This replaces any character that isn't a letter, number,<br>
+    or a dot with an underscore, effectively neutralizing `../` or hidden files.
+    
+*   **The Dynamic Fallback:**
+    
+    ```.unwrap_or_else(|| format!("rx_{}", rand::random::<u16>()))```
 
 ## How it works
 
